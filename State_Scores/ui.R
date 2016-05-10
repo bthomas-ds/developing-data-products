@@ -13,7 +13,7 @@ library(shiny)
 shinyUI(fluidPage(
   
   # Application title
-  titlePanel("Old Faithful Geyser Data"),
+  titlePanel("Ranking Scores"),
   
   # Sidebar with a slider input for number of bins 
   sidebarLayout(
@@ -21,13 +21,13 @@ shinyUI(fluidPage(
        sliderInput("bins",
                    "Number of bins:",
                    min = 1,
-                   max = 50,
-                   value = 30)
+                   max = 90,
+                   value = 49)
     ),
     
     # Show a plot of the generated distribution
     mainPanel(
-       plotOutput("distPlot")
+      plotOutput("rankPlot")
     )
   )
 ))
