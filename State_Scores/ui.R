@@ -35,8 +35,15 @@ shinyUI(
     ),
     # Create a new row for the table.
     fluidRow(
-      DT::dataTableOutput("table")
+      DT::dataTableOutput("table"),
+      tags$p("Temperatures scores were developed by reverse rank scoring. A number 1 in average temperature was assigned a 50. Number 2 was assigned a 49, etc."),
+      tags$p("The original data can be viewed at https://www.currentresults.com/Weather/US/average-annual-state-temperatures.php"),
+      tags$p("Well being scores were also reverse rank ordered scores and extracted from http://www.bankrate.com/finance/retirement/best-places-retire-how-state-ranks.aspx")
     )
+  
   )
+  
 )
+
+
 

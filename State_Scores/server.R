@@ -5,6 +5,7 @@ library(shiny)
 # Load the ggplot2 package which provides
 # the 'mpg' dataset.
 library(ggplot2)
+library(dplyr)
 source("helpers.R")
 
 
@@ -15,6 +16,7 @@ shinyServer(function(input, output) {
   data$total_score <- as.numeric(data$total_score)
   data$Temperature_Ranking <- as.numeric(data$Temperature_Ranking)
   data$Well_Being_Ranking <- as.numeric(data$Well_Being_Ranking)
+  data <- data[order(-data$total_score),]
   # Filter data based on selections
   output$table <- DT::renderDataTable(DT::datatable({
     
