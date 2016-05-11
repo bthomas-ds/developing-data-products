@@ -1,40 +1,35 @@
-#
-# This is the server logic of a Shiny web application. You can run the 
-# application by clicking 'Run App' above.
-#
-# Find out more about building applications with Shiny here:
-# 
-#    http://shiny.rstudio.com/
-#
+
 
 library(shiny)
-library(dplyr)
-library("plotly")
 
-# Define server logic required to draw a histogram
+# Load the ggplot2 package which provides
+# the 'mpg' dataset.
+library(ggplot2)
+source("helpers.R")
+
+
+
+# Define a server for the Shiny app
 shinyServer(function(input, output) {
-  source("/home/bthomas/Github/developing-data-products/State_Scores/helpers.R")
-  tbl_join <- make_table()
-  
-  output$rankPlot <- renderPlot({
+  data <- select(make_table(), State, Temperature_Ranking, Well_Being_Ranking, total_score)
+  data$total_score <- as.numeric(data$total_score)
+  data$Temperature_Ranking <- as.numeric(data$Temperature_Ranking)
+  data$Well_Being_Ranking <- as.numeric(data$Well_Being_Ranking)
+  # Filter data based on selections
+  output$table <- DT::renderDataTable(DT::datatable({
     
-    
-    # give state boundaries a white border
-    l <- list(color = toRGB("white"), width = 2)
-    # specify some map projection/options
-    g <- list(
-      scope = 'usa',
-      projection = list(type = 'albers usa'),
-      showlakes = TRUE,
-      lakecolor = toRGB('white')
-    )
-    
-    p <- plot_ly(tbl_join, z = total_score, text = hover, locations = code, type = 'choropleth',
-            locationmode = 'USA-states', color = total_score, colors = 'Blues',
-            marker = list(line = l), colorbar = list(title = "Total Score"))
-    layout(p, title = 'Well Being Score + Temperature Ranking Score<br>(Hover for breakdown)', geo = g)
-    
-    
-  })
+    if (input$Well_Being_Ranking != "All") {
+      data <- data[data$Well_Being_Ranking == input$Well_Being_Ranking,]
+        
+    }
+    if (input$Temperature_Ranking != "All") {
+      data <- data[data$Temperature_Ranking == input$Temperature_Ranking,]
+    }
+    if (input$Total_Score != "All") {
+      data <- data[data$total_score == input$Total_Score,]
+    }
+    data
+  }))
   
 })
+

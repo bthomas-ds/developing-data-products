@@ -1,5 +1,5 @@
 make_table <- function(){
-  
+library(dplyr)  
 rm(list=ls())
 setwd("~/Github/developing-data-products")
 temperatures_by_state <- read.csv("/home/bthomas/Github/developing-data-products/Data/temperature.txt", header = TRUE, stringsAsFactors = FALSE)

@@ -1,33 +1,42 @@
-#
-# This is the user-interface definition of a Shiny web application. You can
-# run the application by clicking 'Run App' above.
-#
-# Find out more about building applications with Shiny here:
-# 
-#    http://shiny.rstudio.com/
-#
+
 
 library(shiny)
+library(DT)
 
-# Define UI for application that draws a histogram
-shinyUI(fluidPage(
-  
-  # Application title
-  titlePanel("Ranking Scores"),
-  
-  # Sidebar with a slider input for number of bins 
-  sidebarLayout(
-    sidebarPanel(
-       sliderInput("bins",
-                   "Number of bins:",
-                   min = 1,
-                   max = 90,
-                   value = 49)
-    ),
+# Load the ggplot2 package which provides
+# the 'mpg' dataset.
+library(ggplot2)
+
+# Define the overall UI
+shinyUI(
+  fluidPage(
+    titlePanel("Temperature & Well Being Composite Rankings"),
     
-    # Show a plot of the generated distribution
-    mainPanel(
-      plotOutput("rankPlot")
+    # Create a new Row in the UI for selectInputs
+    fluidRow(
+      column(4,
+             selectInput("Well_Being_Ranking",
+                         "Well_Being_Ranking:",
+                         c("All",
+                           unique(as.character(data$Well_Being_Ranking))))
+      ),
+      column(4,
+             selectInput("Temperature_Ranking",
+                         "Temperature_Ranking:",
+                         c("All",
+                           unique(as.character(data$Temperature_Ranking))))
+      ),
+      column(4,
+             selectInput("Total_Score",
+                         "Total_Score:",
+                         c("All",
+                           sort(unique(data$total_score))))
+      )
+    ),
+    # Create a new row for the table.
+    fluidRow(
+      DT::dataTableOutput("table")
     )
   )
-))
+)
+
