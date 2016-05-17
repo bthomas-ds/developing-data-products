@@ -1,13 +1,12 @@
 make_table <- function(){
 library(dplyr)  
-rm(list=ls())
-# setwd("~/Github/developing-data-products")
-# temperatures_by_state <- read.csv("/home/bthomas/Github/developing-data-products/Data/temperature.txt", header = TRUE, stringsAsFactors = FALSE)
-temperatures_by_state <- read.csv(url("https://raw.githubusercontent.com/bthomas-ds/developing-data-products/master/Data/temperature.txt"), header = TRUE, stringsAsFactors = FALSE)
-# temperatures_by_state <- temperatures_by_state[order(-temperatures_by_state$Avg..F),]
+
+temperatures_by_state <- read.csv("Data/temperature.txt", header = TRUE, stringsAsFactors = FALSE)
+temperatures_by_state <- temperatures_by_state[order(-temperatures_by_state$Avg..F),]
 # create a vector of 50 in descending order
 a1 <- seq(1:50)
-a1 <- a1[order(-a1)]
+a1 <- as.data.frame(a1)
+a1 <- a1[order(-a1),]
 
 # bind the rank level score
 temperature_rank <- cbind(temperatures_by_state, a1)
@@ -15,14 +14,14 @@ colnames(temperature_rank)[3] <- "Temp_Score"
 rm(temperatures_by_state)
 
 # Add State codes
-states_codes <- read.csv("https://raw.githubusercontent.com/bthomas-ds/developing-data-products/master/Data/states.txt", stringsAsFactors = FALSE, header = TRUE)
+states_codes <- read.csv("Data/states.txt", stringsAsFactors = FALSE, header = TRUE)
 temperature_rank <- left_join(temperature_rank, states_codes,"State" )
 rm(states_codes)
 
 # healthcare
 # well being ranking for older americans
 # http://www.bankrate.com/finance/retirement/best-places-retire-how-state-ranks.aspx
-well_being <- read.csv("https://raw.githubusercontent.com/bthomas-ds/developing-data-products/master/Data/well_being_rank.txt", header = TRUE, stringsAsFactors = FALSE)
+well_being <- read.csv("Data/well_being_rank.txt", header = TRUE, stringsAsFactors = FALSE)
 colnames(well_being)[1] <- "Well_Being_Rank"
 well_being <- well_being[with (well_being, order(-Well_Being_Rank)),]
 a1 <- a1[order(a1)]
@@ -44,5 +43,5 @@ colnames(tbl_join)[4] <- "Well_Being_Ranking"
 rm(a1)
 
 tbl_join$hover <- with(tbl_join, paste(State, '<br>', "Score", total_score))
-make_table <- tbl_join
+make_table <- select(tbl_join, State, Temperature_Ranking, Well_Being_Ranking, total_score)
 }
