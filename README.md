@@ -17,7 +17,7 @@ A data table was used to visualize the table data with a choropleth map below. W
 
 The data table can be sorted by the columns so users can see while a state rated very high, it was there average annual temperature combination that brought them down in the rank scoring.
 
-The working Shiny application can be found at: [Shing App]("https://retirement-scoring-by-state.shinyapps.io/State_Scores/").
+The working Shiny application can be found at: https://retirement-scoring-by-state.shinyapps.io/State_Scores/
 
-The presentation pitch deck is found on git hub: [Presentation]("")
+The presentation pitch deck is found on git hub: https://github.com/bthomas-ds/developing-data-products/blob/master/course_project.Rpres
 
