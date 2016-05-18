@@ -1,9 +1,10 @@
 name: State_Scores
 account: retirement-scoring-by-state
 server: shinyapps.io
-appId: 102628
-bundleId: 454525
+appId: 102895
+bundleId: 455892
 url: https://retirement-scoring-by-state.shinyapps.io/State_Scores/
-when: 1463509473.31298
+when: 1463602577.91783
 asMultiple: FALSE
 asStatic: FALSE
+ignoredFiles: Data/states2.txt~|Data/states.txt|Data/states.txt~|Data/temperature.txt|Data/temperature.txt~|Data/well_being_rank.txt|Data/well_being_rank.txt~

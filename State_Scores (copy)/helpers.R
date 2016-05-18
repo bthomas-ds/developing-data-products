@@ -1,4 +1,4 @@
-function(input, output) {
+make_table <- function(){
 library(dplyr)  
 
 temperatures_by_state <- read.csv("Data/temperature.txt", header = TRUE, stringsAsFactors = FALSE)

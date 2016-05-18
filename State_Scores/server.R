@@ -1,16 +1,22 @@
 library(shiny)
 library(dplyr)
 
-# setwd("~/Github/developing-data-products/State_Scores")
-source("helpers.R", local = TRUE)
-data1 <- make_table()
-
-
 # Define a server for the Shiny app
 shinyServer(function(input, output) {
   
-  # Filter data based on selections
+  
+  con <- gzfile("Data/df1.rds")
+  df1 <- readRDS(con)
+  close(con)
+  output$usamap <- renderPlot(state_choropleth(df1))
+  
   output$table <- DT::renderDataTable(DT::datatable({
+    # read in presorted table
+    con <- gzfile("Data/data1.rds")
+    data1 <- readRDS(con)
+    close(con)
+    
+     # Filter data based on selections
     
     if (input$Temperature_Ranking != "All") {
       data1 <- data1[data1$Temperature_Ranking == input$Temperature_Ranking,]
@@ -23,7 +29,7 @@ shinyServer(function(input, output) {
     }
     data1
   }))
-
+  
   
 })
 

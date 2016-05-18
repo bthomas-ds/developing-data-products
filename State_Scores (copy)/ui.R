@@ -7,11 +7,6 @@ library(choroplethrMaps)
 # the 'mpg' dataset.
 library(ggplot2)
 
-# read in presorted table
-con <- gzfile("Data/data1.rds")
-data1 <- readRDS(con)
-close(con)
-
 # Define the overall UI
 shinyUI(
   fluidPage(
@@ -21,7 +16,7 @@ shinyUI(
     
     # Create a new Row in the UI for selectInputs
     fluidRow(
-            column(4,
+      column(4,
              selectInput("Temperature_Ranking",
                          "Temperature_Ranking:",
                          c("All",
@@ -51,7 +46,7 @@ shinyUI(
     tags$p("Reverse ranking scores were used. The number 1 state would receive a 50. The number 2 state would receive a 49, etc."),
     
     fluidRow(plotOutput("usamap"))
+            )
   )
-)
 
 

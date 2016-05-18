@@ -1,0 +1,9 @@
+name: State_Scores
+account: retirement-scoring-by-state
+server: shinyapps.io
+appId: 102848
+bundleId: 455675
+url: https://retirement-scoring-by-state.shinyapps.io/State_Scores/
+when: 1463589810.80124
+asMultiple: FALSE
+asStatic: FALSE
